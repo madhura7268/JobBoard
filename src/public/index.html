@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Board Platform</title>
+    <meta
+      name="description"
+      content="A simple job board platform to post jobs, browse listings, and track applications."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <h1>JobBoard</h1>
+        </div>
+        <nav class="sidebar-nav">
+          <button id="nav-dashboard" class="nav-item active" onclick="showSection('dashboard')">
+            📊 Dashboard
+          </button>
+          <button id="nav-post-job" class="nav-item" onclick="showSection('post-job')">
+            ➕ Post Job
+          </button>
+          <button id="nav-browse-jobs" class="nav-item" onclick="showSection('browse-jobs')">
+            🔍 Browse Jobs
+          </button>
+          <button id="nav-my-applications" class="nav-item" onclick="showSection('my-applications')">
+            📋 My Applications
+          </button>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+
+        <!-- Dashboard Section -->
+        <section id="section-dashboard" class="section active">
+          <div class="section-header">
+            <h2>Dashboard</h2>
+            <p>Overview of the job board activity.</p>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-number" id="stat-jobs">—</span>
+              <span class="stat-label">Total Jobs</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number" id="stat-employers">—</span>
+              <span class="stat-label">Total Employers</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number" id="stat-applications">—</span>
+              <span class="stat-label">Total Applications</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Post Job Section -->
+        <section id="section-post-job" class="section">
+          <div class="section-header">
+            <h2>Post a Job</h2>
+            <p>Fill in the details below to post a new job listing.</p>
+          </div>
+          <div class="card">
+            <form id="post-job-form">
+              <div class="form-group">
+                <label for="company-name">Company Name</label>
+                <input type="text" id="company-name" placeholder="e.g. Acme Corp" required />
+              </div>
+              <div class="form-group">
+                <label for="company-email">Company Email</label>
+                <input type="email" id="company-email" placeholder="e.g. hr@acme.com" required />
+              </div>
+              <div class="form-group">
+                <label for="job-title">Job Title</label>
+                <input type="text" id="job-title" placeholder="e.g. Frontend Developer" required />
+              </div>
+              <div class="form-group">
+                <label for="job-description">Description</label>
+                <textarea id="job-description" rows="4" placeholder="Describe the role..." required></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="job-location">Location</label>
+                  <input type="text" id="job-location" placeholder="e.g. Remote / Mumbai" required />
+                </div>
+                <div class="form-group">
+                  <label for="job-salary">Salary</label>
+                  <input type="text" id="job-salary" placeholder="e.g. ₹6 LPA" required />
+                </div>
+              </div>
+              <div id="post-job-message" class="form-message"></div>
+              <button type="submit" class="btn btn-primary">Create Job</button>
+            </form>
+          </div>
+        </section>
+
+        <!-- Browse Jobs Section -->
+        <section id="section-browse-jobs" class="section">
+          <div id="jobs-list-view">
+            <div class="section-header">
+              <h2>Browse Jobs</h2>
+              <p>Explore available job listings.</p>
+            </div>
+            <div id="jobs-container" class="jobs-grid">
+              <p class="placeholder-text">Loading jobs...</p>
+            </div>
+          </div>
+
+          <!-- Apply Form (hidden by default) -->
+          <div id="apply-view" style="display: none;">
+            <div class="section-header">
+              <h2>Apply for Job</h2>
+              <p id="apply-job-title-display" class="apply-job-title"></p>
+            </div>
+            <div class="card">
+              <form id="apply-form">
+                <div class="form-group">
+                  <label for="apply-name">Your Name</label>
+                  <input type="text" id="apply-name" placeholder="e.g. Rahul Sharma" required />
+                </div>
+                <div class="form-group">
+                  <label for="apply-email">Your Email</label>
+                  <input type="email" id="apply-email" placeholder="e.g. rahul@gmail.com" required />
+                </div>
+                <div id="apply-message" class="form-message"></div>
+                <div class="btn-group">
+                  <button type="submit" class="btn btn-primary">Apply</button>
+                  <button type="button" class="btn btn-secondary" onclick="cancelApply()">Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- My Applications Section -->
+        <section id="section-my-applications" class="section">
+          <div class="section-header">
+            <h2>My Applications</h2>
+            <p>Enter your email to view your applications.</p>
+          </div>
+          <div class="card" style="max-width: 480px; margin-bottom: 24px;">
+            <div class="form-row" style="align-items: flex-end;">
+              <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                <label for="lookup-email">Your Email</label>
+                <input type="email" id="lookup-email" placeholder="e.g. rahul@gmail.com" />
+              </div>
+              <button class="btn btn-primary" onclick="loadApplications()" style="margin-left: 12px;">
+                View
+              </button>
+            </div>
+          </div>
+          <div id="applications-container"></div>
+        </section>
+
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
